@@ -26,13 +26,18 @@ interface DenormalizerInterface
 {
     public const COLLECT_DENORMALIZATION_ERRORS = 'collect_denormalization_errors';
 
-    /**
+     /**
      * Denormalizes data back into an object of the given class.
      *
-     * @param mixed       $data    Data to restore
-     * @param string      $type    The expected class to instantiate
-     * @param string|null $format  Format the given data was extracted from
-     * @param array       $context Options available to the denormalizer
+     * @template TObject of object
+     * @param mixed                             $data    Data to restore
+     * @param class-string<TObject>|string|null $type    The expected class to instantiate
+     * @param string|null                       $format  Format the given data was extracted from
+     * @param array                             $context Options available to the denormalizer
+     *
+     * @phpstan-return ($type is class-string<TObject> ? TObject : mixed)
+     *
+     * @psalm-return ($type is class-string<TObject> ? TObject : mixed)
      *
      * @throws BadMethodCallException   Occurs when the normalizer is not called in an expected context
      * @throws InvalidArgumentException Occurs when the arguments are not coherent or not supported
